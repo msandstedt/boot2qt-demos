@@ -59,27 +59,38 @@ int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     QGuiApplication app(argc, argv);
-
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     QFontDatabase::addApplicationFont(":/fonts/TitilliumWeb-Bold.ttf");
     QFontDatabase::addApplicationFont(":/fonts/TitilliumWeb-Light.ttf");
     QFontDatabase::addApplicationFont(":/fonts/TitilliumWeb-Regular.ttf");
 
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     SettingsManager settingsManager;
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     qmlRegisterSingletonInstance("StartupScreen", 1, 0, "SettingsManager", &settingsManager);
 
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     QtButtonImageProvider imageProvider;
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     QQmlApplicationEngine engine;
 
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     engine.addImageProvider("QtButton", &imageProvider);
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     engine.addImportPath("qrc:/imports");
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     const QUrl url(QStringLiteral("qrc:/StartupScreen.qml"));
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
     engine.load(url);
+printf("%s %d\n", __PRETTY_FUNCTION__, __LINE__);
 
     return app.exec();
 }
